@@ -14,7 +14,7 @@ public class Ball implements Bounded{
         this.x = x;
         this.y = y;
         this.radius = radius;
-        bounds = new Rectangle(x, y, radius*2, radius*2);
+        bounds = new Rectangle(x-radius, y-radius, radius*2, radius*2);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Ball implements Bounded{
 
     @Override
     public Rectangle getBounds() {
-        return bounds;
+        return new Rectangle(getMinX(), getMinY(), getWidth(), getHeight());
     }
 
     @Override

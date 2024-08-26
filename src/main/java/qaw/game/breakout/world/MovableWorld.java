@@ -4,6 +4,7 @@ import qaw.game.breakout.type.Bounded;
 import qaw.game.breakout.type.Movable;
 
 public class MovableWorld extends World {
+    protected boolean isRunning;
     private int sleepTime;
 
     public void move() {
@@ -21,7 +22,8 @@ public class MovableWorld extends World {
     }
 
     public void run(){
-        while (maxMoveCount == 0 || moveCount < maxMoveCount) {
+        isRunning = true;
+        while ((maxMoveCount == 0 || moveCount < maxMoveCount) && isRunning) {
             move();
             try {
                 Thread.sleep(sleepTime);

@@ -2,6 +2,8 @@ package qaw.game.breakout.world;
 
 import java.util.List;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -11,8 +13,28 @@ import qaw.game.breakout.type.Paintable;
 
 public class World extends JPanel {
     protected List<Bounded> boundedList = new ArrayList<>();
+    protected Bounded paddle;
     protected int maxMoveCount; 
     protected int moveCount;
+
+    public World() {
+        addMouseMotionListener(new MouseMotionListener() {
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                paddle.setX(e.getX());
+                repaint();
+            }
+        });
+    }
+
+    public void setPaddle(Bounded paddle) {
+        this.paddle = paddle;
+    }
 
     public int getCount() {
         return boundedList.size();
@@ -39,6 +61,7 @@ public class World extends JPanel {
     }
     
     public void paint(Graphics g) {
+        ((Paintable)paddle).paint(g);
         for (Bounded bounded : boundedList) {
             if (bounded instanceof Paintable) {
                 ((Paintable)bounded).paint(g);

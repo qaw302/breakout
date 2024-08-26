@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import qaw.game.breakout.element.BoundedBall;
-import qaw.game.breakout.element.Brick;
+import qaw.game.breakout.element.Box;
 import qaw.game.breakout.type.Bounded;
 import qaw.game.breakout.type.Movable;
 import qaw.game.breakout.world.BoundedWorld;
@@ -35,14 +35,17 @@ public class Main {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setVisible(true);
 
-        Bounded powerBall = new BoundedBall(FRAME_WIDTH/2, FRAME_HEIGHT-50, 10 , Color.BLACK);
+        Bounded powerBall = new BoundedBall(FRAME_WIDTH/2, FRAME_HEIGHT-60, 10 , Color.BLACK);
         ((Movable)powerBall).setDx(1);
         ((Movable)powerBall).setDy(-1);
         world.add(powerBall);
 
+        Bounded paddle = new Box(FRAME_WIDTH/2, FRAME_HEIGHT-40, 60, 10);
+        world.setPaddle(paddle);
+
         for (int line=0; line<BRICK_LINE; line++) {
             for (int x=0; x<BRICK_COUNT_PER_FRAME_WIDTH; x++) {
-                Bounded brick = new Brick(BRICK_WIDHT/2 + x*BRICK_WIDHT, BRICK_HEIGHT/2 +line*BRICK_HEIGHT , BRICK_WIDHT, BRICK_HEIGHT, colors[line%colors.length]);
+                Bounded brick = new Box(BRICK_WIDHT/2 + x*BRICK_WIDHT, BRICK_HEIGHT/2 +line*BRICK_HEIGHT , BRICK_WIDHT, BRICK_HEIGHT, colors[line%colors.length]);
                 world.add(brick);
             }
         }

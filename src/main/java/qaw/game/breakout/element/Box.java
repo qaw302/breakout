@@ -8,21 +8,21 @@ import qaw.game.breakout.type.Bounded;
 import qaw.game.breakout.type.Paintable;
 import qaw.game.breakout.type.Breakable;
 
-public class Brick implements Bounded, Paintable, Breakable {
+public class Box implements Bounded, Paintable, Breakable {
     private final static Color DEFAULT_COLOR = Color.DARK_GRAY;
     private int x;
     private int y;
     private Rectangle bounds;
     private Color color;
 
-    public Brick(int x, int y, int width, int height) {
+    public Box(int x, int y, int width, int height) {
         this(x, y, width, height, DEFAULT_COLOR);
     }
 
-    public Brick(int x, int y, int width, int height, Color color) {
+    public Box(int x, int y, int width, int height, Color color) {
         this.x = x;
         this.y = y;
-        this.bounds = new Rectangle(x, y, width, height);
+        this.bounds = new Rectangle(x-width/2, y-height/2, width, height);
         this.color = color;
     }
 
@@ -79,7 +79,7 @@ public class Brick implements Bounded, Paintable, Breakable {
 
     @Override
     public Rectangle getBounds() {
-        return bounds;
+        return new Rectangle(getMinX(), getMinY(), getWidth(), getHeight());
     }
 
     @Override

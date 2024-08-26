@@ -1,6 +1,7 @@
 package qaw.game.breakout.world;
 
 
+import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,14 +54,22 @@ public class BoundedWorld extends MovableWorld {
             }
 
             if (bounded instanceof BoundedBall) {
+                BoundedBall boundedBall = (BoundedBall)bounded;
                 if (isOutOfBounds(bounded)) {
+                    if (bounded.getMaxY() >= getBounds().getMaxY()) {
+                        isRunning = false;
+                        break;
+                    }
                     correct(bounded);
-                    bounce((BoundedBall)bounded);
+                    bounce(boundedBall);
                 }
                 
+                if (bounded.getBounds().intersects(paddle.getBounds())) {
+                    boundedBall.setDy(-boundedBall.getDy());
+                }
                 for (Bounded other : boundedList) {
-                    if (((BoundedBall)bounded).isCrash(other)) {
-                        ((BoundedBall)bounded).bounce(other);
+                    if (boundedBall.isCrash(other)) {
+                        boundedBall.bounce(other);
                     }
                 }
             }
